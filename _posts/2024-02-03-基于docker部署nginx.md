@@ -6,9 +6,10 @@ tags: [CI, nginx]
 ---
 使用docker compose部署nginx，反向代理本地的CI相关服务。
 
-# 目录结构
+# 目录结构 {#dir-tree}
 ```sh
 .
+├── .env
 ├── docker-compose.yml
 └── nginx
     ├── conf.d
@@ -21,7 +22,7 @@ tags: [CI, nginx]
         └── server_nopass.key
 ```
 
-# 配置docker-compose.yml
+# 配置docker-compose.yml {#config-docker-compose}
 ```yaml
 version: "3"
 name: common
@@ -43,7 +44,7 @@ services:
       - ./nginx/keys:/etc/nginx/keys    # 不使用https代理可去掉本行
 ```
 
-# default.conf内容
+# default.conf内容 {#config-nginx-default}
 ```sh
 server {
 	listen 80 default_server;
@@ -61,7 +62,7 @@ server {
 }
 ```
 
-# demo.conf内容
+# demo.conf内容 {#config-nginx-demo}
 代理站点的模板
 ```sh
 server {
@@ -83,9 +84,9 @@ server {
 
 ---
 
-# 自建SSL证书
+# 自建SSL证书 {#create-ssl}
 本地测试使用，这边使用openssl生成测试证书
-## 1.生成一个RSA密钥
+## 1.生成一个RSA密钥 {#create-ssl-rsa}
 ```sh
 [root@localhost keys]#  openssl genrsa -des3 -out server.key 1024
 Generating RSA private key, 1024 bit long modulus
@@ -95,7 +96,7 @@ e is 65537 (0x10001)
 Enter pass phrase for server.key:               #输入密码，自定义，不少于4个字符
 Verifying - Enter pass phrase for server.key:   #确认密码
 ```
-## 2.生成一个证书请求
+## 2.生成一个证书请求 {#create-ssl-req}
 ```sh
 [root@localhost keys]# openssl req -new -key server.key -out server.csr
 Enter pass phrase for server.key:               #输入刚刚创建的秘密码
@@ -120,14 +121,14 @@ to be sent with your certificate request
 A challenge password []:                                #是否设置密码，可以不写直接回车  
 An optional company name []:                            #其他公司名称 可不写
 ```
-## 3.创建免密RSA证书
+## 3.创建免密RSA证书 {#create-ssl-rsa-nopw}
 需要创建免密的RSA证书，否则每次reload、restart都需要输入密码
 ```sh
 [root@localhost keys]# openssl rsa -in server.key -out server_nopass.key
 Enter pass phrase for server.key:                       #之前RSA秘钥创建时的密码
 writing RSA key
 ```
-## 4.签发证书
+## 4.签发证书 {#create-ssl-sign}
 测试环境自己签发，实际应该将自己生成的csr文件提交给SSL认证机构认证
 ```sh
 [root@localhost keys]# openssl x509 -req -days 3650 -in server.csr  -signkey server.key -out server.crt    
@@ -137,7 +138,7 @@ Getting Private key
 Enter pass phrase for server.key:                       #RSA创建时的密码
 ```
 
-# https反向代理配置
+# https反向代理配置 {#config-nginx-https}
 ```sh
 server {
     listen                    80;
