@@ -106,6 +106,6 @@ server {
 # 测试 {#test}
 HOST浏览器输入`lam.xxx.com`查看
 
-![Desktop View](/images/202402/20240203_01.jpg){: width="800" height="579" }
+![Desktop View](/static/images/202402/20240203_01.jpg){: width="800" height="579" }
 
-![Desktop View](/images/202402/20240203_02.jpg){: width="870" height="675" }
+![Desktop View](/static/images/202402/20240203_02.jpg){: width="870" height="675" }
