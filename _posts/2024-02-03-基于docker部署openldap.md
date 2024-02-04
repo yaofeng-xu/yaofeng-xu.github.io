@@ -5,7 +5,7 @@ categories: [CI, 部署]
 tags: [CI, ldap]
 ---
 使用docker compose部署openldap和openldap web客户端
-# 配置docker-compose.yml {#config-docker-compose}
+## 配置docker-compose.yml {#config-docker-compose}
 部署`osixia/openldap:1.5.0`，openldap服务
 部署`ldapaccountmanager/lam:8.3`，openldap web客户端
 ```yaml
@@ -57,13 +57,13 @@ services:
 [root@localhost keys]# docker exec ldap.docker.local ldapsearch -x -H ldap://localhost -b dc=xxx,dc=com -D "cn=admin,dc=xxx,dc=com" -w 123456
 ...
 ```
-# 配置.env {#config-env}
+## 配置.env
 根据实际情况配置路径
 ```sh
 LDAP_DB_VOLUME=/opt/volume/ldap/db
 LDAP_CFG_VOLUME=/opt/volume/ldap/cfg
 ```
-# nginx反向代理配置 {#config-nginx}
+## nginx反向代理配置
 在nginx配置文件目录下新建`lam.conf`，内容如下。
 ```sh
 server {
@@ -95,7 +95,7 @@ server {
     }
 }
 ```
-# 本地HOST添加网址 {#config-hosts}
+## 本地HOST添加网址
 我的HOST是WIN11，`hosts`路径如下。
 > C:\Windows\System32\drivers\etc\hosts
 ```sh
@@ -103,7 +103,7 @@ server {
 127.0.0.1 lam.xxx.com       # 前面的IP换成nginx服务器所在服务器的IP
 ```
 
-# 测试 {#test}
+## 测试
 HOST浏览器输入`lam.xxx.com`查看
 
 ![Desktop View](/static/images/202402/20240203_01.jpg){: width="800" height="579" }
