@@ -108,5 +108,5 @@ HOST浏览器输入`gerrit.xxx.com`查看
 ![Desktop View](/static/images/202402/20240204_02.jpg){: width="1220" height="1011" }
 
 ## 相关链接
-[基于docker部署nginx](/posts/基于docker部署nginx/)
-[基于docker部署openldap](/posts/基于docker部署openldap/)
+[基于docker部署nginx](/posts/基于docker部署nginx/)  
+[基于docker部署openldap](/posts/基于docker部署openldap/)  
