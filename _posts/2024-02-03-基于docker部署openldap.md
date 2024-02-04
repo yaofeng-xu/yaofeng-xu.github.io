@@ -86,7 +86,7 @@ server {
     location / {
         set $target           http://lam.docker.local;
         proxy_pass            $target;
-        resolver              127.0.0.11;
+        resolver              127.0.0.11;   # 设置容器dns，否则会找不到Gerrit服务器
         proxy_redirect        off; 
         proxy_set_header      Host $host; 
         proxy_set_header      X-Real-IP $remote_addr; 
@@ -100,7 +100,7 @@ server {
 > C:\Windows\System32\drivers\etc\hosts
 ```sh
 127.0.0.1 localhost
-127.0.0.1 lam.xxx.com       # 前面的IP换成nginx服务器所在服务器的IP
+127.0.0.1 lam.xxx.com       # 添加lam域名，前面的IP换成nginx服务器所在服务器的IP
 ```
 
 ## 测试
