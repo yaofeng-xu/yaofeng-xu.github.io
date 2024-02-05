@@ -17,13 +17,16 @@ services:
     image: osixia/openldap:1.5.0
     restart: unless-stopped
     logging:
-      driver: none                      # 本地部署，不启用日志
+      driver: none            # 本地部署，不启用日志
     container_name: ldap.docker.local
     hostname: ldap.docker.local
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${LDAP_DB_VOLUME}:/var/lib/ldap
       - ${LDAP_CFG_VOLUME}:/etc/ldap/slapd.d
+    # ports:
+    #   - "389:389"           # docker bridge内部访问，无需映射
+    #   - "636:636"           # docker bridge内部访问，无需映射
     environment:
       LDAP_ORGANISATION: xxx
       LDAP_DOMAIN: xxx.com
@@ -37,11 +40,13 @@ services:
     image: ldapaccountmanager/lam:8.3
     restart: unless-stopped
     logging:
-      driver: none                      # 本地部署，不启用日志
+      driver: none            # 本地部署，不启用日志
     container_name: lam.docker.local
     hostname: lam.docker.local
     volumes:
       - /etc/localtime:/etc/localtime:ro
+    # ports:
+    #   - "80:80"             # web端口，通过nginx反向代理访问，无需映射
     environment:
       LAM_LANG: zh_CN
       LAM_PASSWORD: 123456
@@ -86,7 +91,7 @@ server {
     location / {
         set $target           http://lam.docker.local;
         proxy_pass            $target;
-        resolver              127.0.0.11;   # 设置容器dns，否则会找不到Gerrit服务器
+        resolver              127.0.0.11;   # 设置容器dns，否则会找不到服务器
         proxy_redirect        off; 
         proxy_set_header      Host $host; 
         proxy_set_header      X-Real-IP $remote_addr; 
@@ -98,11 +103,11 @@ server {
 ## 本地HOST添加网址
 我的HOST是WIN11，`hosts`路径如下。
 > C:\Windows\System32\drivers\etc\hosts
-```sh
-127.0.0.1 localhost
-127.0.0.1 lam.xxx.com       # 添加lam域名，前面的IP换成nginx服务器所在服务器的IP
-```
 
+添加lam域名，前面的IP换成nginx服务器所在服务器的IP
+```sh
+127.0.0.1 lam.xxx.com
+```
 ## 测试
 HOST浏览器输入`lam.xxx.com`查看
 
