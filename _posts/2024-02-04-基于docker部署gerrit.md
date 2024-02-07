@@ -1,7 +1,7 @@
 ---
 title: 基于docker部署gerrit
 date: 2024-02-04 23:30:00 +0800
-categories: [CI, 部署]
+categories: [部署, gerrit]
 tags: [CI, ldap, gerrit]
 ---
 使用docker compose部署gerrit并配置ldap登录。

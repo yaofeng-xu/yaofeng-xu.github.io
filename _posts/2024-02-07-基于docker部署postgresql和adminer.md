@@ -1,7 +1,7 @@
 ---
 title: 基于docker部署postgresql
 date: 2024-02-07 01:00:00 +0800
-categories: [CI, 部署]
+categories: [部署, postgresql]
 tags: [CI, database, postgresql]
 ---
 使用docker compose部署postgresql和adminer。

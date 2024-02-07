@@ -1,8 +1,8 @@
 ---
 title: 基于docker部署openldap
 date: 2024-02-03 20:59:00 +0800
-categories: [CI, 部署]
-tags: [CI, ldap]
+categories: [部署, openldap]
+tags: [CI, openldap, lam]
 ---
 使用docker compose部署openldap和openldap web客户端
 ## 配置docker-compose.yml {#config-docker-compose}

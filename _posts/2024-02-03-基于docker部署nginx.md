@@ -1,8 +1,8 @@
 ---
 title: 基于docker部署nginx
 date: 2024-02-03 20:59:00 +0800
-categories: [CI, 部署]
-tags: [CI, nginx]
+categories: [部署, nginx]
+tags: [CI, nginx, proxy]
 ---
 使用docker compose部署nginx，反向代理本地的CI相关服务。
 

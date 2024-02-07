@@ -1,7 +1,7 @@
 ---
 title: 基于docker部署SonarQube
 date: 2024-02-07 00:32:00 +0800
-categories: [CI, 部署]
+categories: [部署, SonarQube]
 tags: [CI, ldap, SonarQube]
 ---
 使用docker compose部署SonarQube并配置ldap登录。
