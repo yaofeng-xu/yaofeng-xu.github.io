@@ -1,5 +1,5 @@
 ---
-title: 基于docker部署gerrit
+title: 基于docker部署nexus
 date: 2024-02-07 20:57:00 +0800
 categories: [部署, nexus]
 tags: [CI, ldap, nexus]
