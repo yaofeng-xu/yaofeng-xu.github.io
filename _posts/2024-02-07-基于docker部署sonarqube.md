@@ -128,6 +128,31 @@ HOST浏览器输入`sonar.xxx.com`查看
 使用H2数据库会出现如下提示  
 ![Desktop View](/static/images/202402/20240207_02.jpg)  
 
+## 问题处理
+```
+1. max virtual memory areas vm.max_map_count [65530] is too low
+启动日志出现如下日志
+bootstrap check failure [1] of [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]; for more information see [https://www.elastic.co/guide/en/elasticsearch/reference/8.11/_maximum_map_count_check.html]
+ERROR: Elasticsearch did not exit normally - check the logs at /opt/sonarqube/logs/sonarqube.log
+2024.02.18 10:37:17 WARN  es[][o.e.n.Node] unexpected exception while waiting for http server to close
+java.util.concurrent.ExecutionException: java.lang.IllegalStateException: Can't move to stopped state when not started
+        at java.util.concurrent.FutureTask.report(Unknown Source) ~[?:?]
+        at java.util.concurrent.FutureTask.get(Unknown Source) ~[?:?]
+        at org.elasticsearch.node.Node.prepareForClose(Node.java:1776) ~[elasticsearch-8.11.0.jar:?]
+        at org.elasticsearch.bootstrap.Elasticsearch.shutdown(Elasticsearch.java:468) ~[elasticsearch-8.11.0.jar:?]
+        at java.lang.Thread.run(Unknown Source) ~[?:?]
+Caused by: java.lang.IllegalStateException: Can't move to stopped state when not started
+        at org.elasticsearch.common.component.Lifecycle.canMoveToStopped(Lifecycle.java:128) ~[elasticsearch-8.11.0.jar:?]
+        at org.elasticsearch.common.component.AbstractLifecycleComponent.stop(AbstractLifecycleComponent.java:73) ~[elasticsearch-8.11.0.jar:?]
+        at org.elasticsearch.node.Node.lambda$prepareForClose$59(Node.java:1768) ~[elasticsearch-8.11.0.jar:?]
+        at java.util.concurrent.FutureTask.run(Unknown Source) ~[?:?]
+        ... 1 more
+
+解决方法：
+$ sudo echo 'vm.max_map_count=524288' >> /etc/sysctl.conf
+$ systemctl restart docker
+```
+
 ## 相关链接
 [基于docker部署nginx](/posts/基于docker部署nginx/)  
 [基于docker部署openldap](/posts/基于docker部署openldap/)  
